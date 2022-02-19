@@ -2,6 +2,10 @@
   "name": "scraper",
   "version": "1.0.0",
   "type": "module",
+  "main": "scrape.js",
+  "scripts": {
+    "start": "node ."
+  },
   "dependencies": {
     "chalk": "^5.0.0",
     "nanospinner": "^1.0.0",

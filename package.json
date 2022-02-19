@@ -1,0 +1,11 @@
+{
+  "name": "scraper",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "chalk": "^5.0.0",
+    "nanospinner": "^1.0.0",
+    "puppeteer": "^13.3.2",
+    "xlsx": "^0.18.2"
+  }
+}

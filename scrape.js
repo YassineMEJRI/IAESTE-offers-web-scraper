@@ -11,8 +11,7 @@ let old_data;
 
 fs.readFile(json_file, 'utf-8', (err,data) => {
   if(err){
-    console.log(err);
-  return;
+    return;
   }
   old_data = JSON.parse(data);
 });
@@ -86,6 +85,10 @@ fs.writeFile(json_file, JSON.stringify(arr), function(err) {
 }
 
 function getNewOffers(older, newer){
+  if(older == null){
+    console.log(chalk.red('Cannot detect newer offers. Old offers file not found. Will start looking on the next execution.'));
+    return;
+  }
   for(var i = 0; i < newer.length; i++){
     for(var j = 0; j < older.length; j++){
       if(newer[i].ref == older[j].ref)

@@ -52,14 +52,13 @@ const spinner = createSpinner('Scraping the web for internships...').start();
 
   spinner.success({text: chalk.bold.cyan("Scraped " + internships.length + " internships.\n")});
   
-  writeToFile(internships);
-  
   await browser.close();
+
+  writeToFile(internships);
 
   extractToSheet(internships);
   
   getNewOffers(old_data, internships);
-
 })();
 
 function extractToSheet(arr){
@@ -76,12 +75,11 @@ function extractToSheet(arr){
 }
 
 function writeToFile(arr){
-fs.writeFile(json_file, JSON.stringify(arr), function(err) {
-    if (err) {
-        console.log(err);
-    }
-});
-
+  fs.writeFile(json_file, JSON.stringify(arr), function(err) {
+      if (err) {
+          console.log(err);
+      }
+  });
 }
 
 function getNewOffers(older, newer){
@@ -90,18 +88,26 @@ function getNewOffers(older, newer){
     return;
   }
   for(var i = 0; i < newer.length; i++){
-    for(var j = 0; j < older.length; j++){
-      if(newer[i].ref == older[j].ref)
-        break;
-    }
-    if(j >= older.length)
-      console.log(
-        chalk.bgRed('\nNew Offer:') +
-      chalk.yellow('\nreference: ') + newer[i].ref +
-      chalk.yellow('\nduration: ' ) + newer[i].duration + 
-      chalk.yellow('\nwithin: ' ) + newer[i].within+
-      chalk.yellow('\nsalary: ' ) + newer[i].salary+
-      chalk.yellow('\nlink: ' ) + newer[i].link+
-      chalk.yellow('\ntitle: ' ) + newer[i].title);
+    if(!existsIn(newer[i].ref, older))
+      printNewOffer(newer[i]);
   }
+}
+
+function printNewOffer(offer){
+  console.log(
+    chalk.bgRed('\nNew Offer:') +
+    chalk.yellow('\nreference: ') + offer.ref +
+    chalk.yellow('\nduration: ' ) + offer.duration + 
+    chalk.yellow('\nwithin: ' ) + offer.within+
+    chalk.yellow('\nsalary: ' ) + offer.salary+
+    chalk.yellow('\nlink: ' ) + offer.link+
+    chalk.yellow('\ntitle: ' ) + offer.title);
+}
+
+function existsIn(ref, array){
+  for(var i = 0; i < array.length; i++){
+    if(array[i].ref == ref)
+      return true;
+  }
+  return false;
 }

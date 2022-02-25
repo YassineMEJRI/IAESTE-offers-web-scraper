@@ -99,6 +99,7 @@ function printNewOffer(offer){
     chalk.yellow('\nreference: ') + offer.ref +
     chalk.yellow('\nduration: ' ) + offer.duration + 
     chalk.yellow('\nwithin: ' ) + offer.within+
+    chalk.yellow('\nexpiration: ') + offer.expiration+
     chalk.yellow('\nsalary: ' ) + offer.salary+
     chalk.yellow('\nlink: ' ) + offer.link+
     chalk.yellow('\ntitle: ' ) + offer.title);

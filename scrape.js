@@ -24,8 +24,11 @@ const spinner = createSpinner('Scraping the web for internships...').start();
   const url = 'https://iaeste.org/internships?utf8=%E2%9C%93&ref_no=&discipline%5B%5D=11&internship_type=open&sort=deadline_at'
   await page.goto(url);
 
-  const number_pages = await page.evaluate(()=> 
-  document.querySelector('body > main > div:nth-child(5) > div > div.pagination-wrapper > a').innerText.substring(2));
+  const number_pages = await page.evaluate(()=> {
+    const element = document.querySelector('body > main > div:nth-child(5) > div > div.pagination-wrapper > a');
+    return element?element.innerText.substring(2):3
+    }
+  );
 
   let internships = [];
   let next_url = url;

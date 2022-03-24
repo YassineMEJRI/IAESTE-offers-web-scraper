@@ -3,8 +3,11 @@ A nodejs CLI tool to scrape [iaeste.org](https://iaeste.org) for internships in 
 
 
 # How to use?
-Simply  cd into the project directory using the terminal and run this command:
+First you need to install the node dependencies. Simply cd into the directory using the terminal and run:
 
+    npm i
+After installation finishes, run the application using:
+    
     node .
 The script will create an `internships.xlsx` file that list all scraped offers with their details, like the title, start date, expiration date, salary, link to the offer, and more.
 

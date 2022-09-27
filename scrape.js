@@ -3,6 +3,7 @@ import fs from "fs";
 import xlsx from "xlsx";
 import chalk from "chalk";
 import nanospinner, { createSpinner } from "nanospinner";
+import { exit } from "process";
 
 const json_file = 'old_data.json';
 const xlsx_file = 'internships.xlsx';
@@ -22,7 +23,13 @@ const spinner = createSpinner('Scraping the web for internships...').start();
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   const url = 'https://iaeste.org/internships?utf8=%E2%9C%93&ref_no=&discipline%5B%5D=11&internship_type=open&sort=deadline_at'
-  await page.goto(url);
+  try {
+    await page.goto(url);
+  } catch (error) {
+    spinner.error({text: chalk.redBright("Error loading the page. Check log file.")});
+    exit();
+  }
+  
 
   const number_pages = await page.evaluate(()=> {
     const element = document.querySelector('body > main > div:nth-child(5) > div > div.pagination-wrapper > a');
